@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Ä³¸¯ÅÍ ´É·ÂÄ¡ Å¬·¡½º
+// ìºë¦­í„° ëŠ¥ë ¥ì¹˜ í´ë˜ìŠ¤
 public class Character
 {
-    public int piety;   // °æ°ÇÇÔ
-    public int pol;     // Á¤Ä¡·Â
-    public float hp;    // Ã¼·Â
+    public int piety;   // ê²½ê±´í•¨
+    public int pol;     // ì •ì¹˜ë ¥
+    public float hp;    // ì²´ë ¥
 
-    // ÀÔ·Â ¹ŞÀº °ªÀ¸·Î ´É·ÂÄ¡ ÃÊ±âÈ­
+    // ì…ë ¥ ë°›ì€ ê°’ìœ¼ë¡œ ëŠ¥ë ¥ì¹˜ ì´ˆê¸°í™”
     public Character(int piety, int pol, float hp)
     {
         this.piety = piety;
@@ -19,78 +19,78 @@ public class Character
 
 public class StatsManager : MonoBehaviour
 {
-    // ÈÄº¸ÀÚµéÀÇ ´É·ÂÄ¡¸¦ ÀúÀåÇÏ´Â ¸®½ºÆ®
+    // í›„ë³´ìë“¤ì˜ ëŠ¥ë ¥ì¹˜ë¥¼ ì €ì¥í•˜ëŠ” ë¦¬ìŠ¤íŠ¸
     public List<Character> characters = new List<Character>();
 
-    // ±âµµ °ü·Ã º¯¼ö
-    public int pietyPrayChange; // ±âµµ·Î ÀÎÇÑ °æ°ÇÇÔ º¯È­·®
-    public int hpPrayChange;    // ±âµµ·Î ÀÎÇÑ Ã¼·Â º¯È­·®
-    public int hpPrayRate;      // ±âµµ·Î ÀÎÇÑ Ã¼·Â È¸º¹ È®·ü
+    // ê¸°ë„ ê´€ë ¨ ë³€ìˆ˜
+    public int pietyPrayChange; // ê¸°ë„ë¡œ ì¸í•œ ê²½ê±´í•¨ ë³€í™”ëŸ‰
+    public int hpPrayChange;    // ê¸°ë„ë¡œ ì¸í•œ ì²´ë ¥ ë³€í™”ëŸ‰
+    public int hpPrayRate;      // ê¸°ë„ë¡œ ì¸í•œ ì²´ë ¥ íšŒë³µ í™•ë¥ 
 
-    // ¿¬¼³ °ü·Ã º¯¼ö
-    public int polSpeechChange; // ¿¬¼³·Î ÀÎÇÑ Á¤Ä¡·Â º¯È­·®
-    public int polSpeechRate;   // ¿¬¼³·Î ÀÎÇÑ Á¤Ä¡·Â º¯È­ È®·ü
+    // ì—°ì„¤ ê´€ë ¨ ë³€ìˆ˜
+    public int polSpeechChange; // ì—°ì„¤ë¡œ ì¸í•œ ì •ì¹˜ë ¥ ë³€í™”ëŸ‰
+    public int polSpeechRate;   // ì—°ì„¤ë¡œ ì¸í•œ ì •ì¹˜ë ¥ ë³€í™” í™•ë¥ 
 
 
-    /* ÇÔ¼ö ÀÌ¸§ : SetStats()
-     * ÇÔ¼ö ±â´É : °¢ Ä³¸¯ÅÍµéÀÇ ´É·ÂÄ¡¸¦ ÃÊ±âÈ­ ÇÑ´Ù. °æ°ÇÇÔ°ú Á¤Ä¡·ÂÀº ÁöÁ¤ÇÑ ¹üÀ§ ³»ÀÇ ·£´ıÇÑ °ª, Ã¼·ÂÀº 100 À¸·Î ÃÊ±âÈ­
-     *            ±âµµ¿Í ¿¬¼³·Î ÀÎÇÑ ´É·ÂÄ¡ º¯È­·®À» ÃÊ±âÈ­
-     * ÇÔ¼ö ÆÄ¶ó¹ÌÅÍ : ¾øÀ½
-     * ¹İÈ¯°ª : ¾øÀ½
+    /* í•¨ìˆ˜ ì´ë¦„ : SetStats()
+     * í•¨ìˆ˜ ê¸°ëŠ¥ : ê° ìºë¦­í„°ë“¤ì˜ ëŠ¥ë ¥ì¹˜ë¥¼ ì´ˆê¸°í™” í•œë‹¤. ê²½ê±´í•¨ê³¼ ì •ì¹˜ë ¥ì€ ì§€ì •í•œ ë²”ìœ„ ë‚´ì˜ ëœë¤í•œ ê°’, ì²´ë ¥ì€ 100 ìœ¼ë¡œ ì´ˆê¸°í™”
+     *            ê¸°ë„ì™€ ì—°ì„¤ë¡œ ì¸í•œ ëŠ¥ë ¥ì¹˜ ë³€í™”ëŸ‰ì„ ì´ˆê¸°í™”
+     * í•¨ìˆ˜ íŒŒë¼ë¯¸í„° : ì—†ìŒ
+     * ë°˜í™˜ê°’ : ì—†ìŒ
      */
     public void SetStats()
     {
-        // 0¹ø ÀÎµ¦½º ÇÃ·¹ÀÌ¼­ ´É·ÂÄ¡
+        // 0ë²ˆ ì¸ë±ìŠ¤ í”Œë ˆì´ì„œ ëŠ¥ë ¥ì¹˜
         characters.Add(new Character(Random.Range(25, 35), Random.Range(25, 35), 100f));
-        // 1~3¹ø ÀÎµ¦½º »ó´ë ÈÄº¸ ´É·ÂÄ¡
+        // 1~3ë²ˆ ì¸ë±ìŠ¤ ìƒëŒ€ í›„ë³´ ëŠ¥ë ¥ì¹˜
         characters.Add(new Character(Random.Range(25, 35), Random.Range(25, 35), 100f));
         characters.Add(new Character(Random.Range(25, 35), Random.Range(25, 35), 100f));
         characters.Add(new Character(Random.Range(25, 35), Random.Range(25, 35), 100f));
 
-        // ±âµµ °ü·Ã º¯¼ö ÃÊ±âÈ­
-        pietyPrayChange = 10;   // ±âµµ·Î ÀÎÇÑ °æ°ÇÇÔ º¯È­·®
-        hpPrayChange = 10;      // ±âµµ·Î ÀÎÇÑ Ã¼·Â È¸º¹·®
-        hpPrayRate = 80;        // Ã¼·Â È¸º¹ È®·ü
+        // ê¸°ë„ ê´€ë ¨ ë³€ìˆ˜ ì´ˆê¸°í™”
+        pietyPrayChange = 10;   // ê¸°ë„ë¡œ ì¸í•œ ê²½ê±´í•¨ ë³€í™”ëŸ‰
+        hpPrayChange = 10;      // ê¸°ë„ë¡œ ì¸í•œ ì²´ë ¥ íšŒë³µëŸ‰
+        hpPrayRate = 80;        // ì²´ë ¥ íšŒë³µ í™•ë¥ 
         
-        // ¿¬¼³ °ü·Ã º¯¼ö ÃÊ±âÈ­
-        polSpeechChange = 10;   // ¿¬¼³·Î ÀÎÇÑ Á¤Ä¡·Â º¯È­·®
-        polSpeechRate = 70;     // Á¤Ä¡·Â º¯È­ È®·ü
+        // ì—°ì„¤ ê´€ë ¨ ë³€ìˆ˜ ì´ˆê¸°í™”
+        polSpeechChange = 10;   // ì—°ì„¤ë¡œ ì¸í•œ ì •ì¹˜ë ¥ ë³€í™”ëŸ‰
+        polSpeechRate = 70;     // ì •ì¹˜ë ¥ ë³€í™” í™•ë¥ 
 
     }
 
-    /* ÇÔ¼ö ÀÌ¸§ : Pray()
-     * ÇÔ¼ö ±â´É : ±âµµ¸¦ ¼öÇàÇÏ¿© ÇÃ·¹ÀÌ¾îÀÇ °æ°ÇÇÔÀ» ÁöÁ¤ÇÑ °ª¸¸Å­ º¯È­½ÃÅ²´Ù. Ã¼·ÂÀº ÀÏÁ¤ È®·üÀ» Àû¿ë½ÃÄÑ È¸º¹
-     * ÇÔ¼ö ÆÄ¶ó¹ÌÅÍ : ¾øÀ½
-     * ¹İÈ¯°ª : ¾øÀ½
+    /* í•¨ìˆ˜ ì´ë¦„ : Pray()
+     * í•¨ìˆ˜ ê¸°ëŠ¥ : ê¸°ë„ë¥¼ ìˆ˜í–‰í•˜ì—¬ í”Œë ˆì´ì–´ì˜ ê²½ê±´í•¨ì„ ì§€ì •í•œ ê°’ë§Œí¼ ë³€í™”ì‹œí‚¨ë‹¤. ì²´ë ¥ì€ ì¼ì • í™•ë¥ ì„ ì ìš©ì‹œì¼œ íšŒë³µ
+     * í•¨ìˆ˜ íŒŒë¼ë¯¸í„° : ì—†ìŒ
+     * ë°˜í™˜ê°’ : ì—†ìŒ
      */
     public void Pray()
     {
-        characters[0].piety += pietyPrayChange;     // °æ°ÇÇÔÀ» º¯È­
+        characters[0].piety += pietyPrayChange;     // ê²½ê±´í•¨ì„ ë³€í™”
 
-        if (Random.Range(0f, 100f) <= hpPrayRate)   // Ã¼·ÂÀÌ È¸º¹µÉ È®·ü Àû¿ë
+        if (Random.Range(0f, 100f) <= hpPrayRate)   // ì²´ë ¥ì´ íšŒë³µë  í™•ë¥  ì ìš©
         {
-            characters[0].hp += hpPrayChange;       // È®·ü¿¡ µé¾î¿À¸é Ã¼·Â È¸º¹
+            characters[0].hp += hpPrayChange;       // í™•ë¥ ì— ë“¤ì–´ì˜¤ë©´ ì²´ë ¥ íšŒë³µ
         }
 
     }
 
-    /* ÇÔ¼ö ÀÌ¸§ : Speech()
-     * ÇÔ¼ö ±â´É : ¿¬¼³ ¼öÇà ½Ã ÀÏÁ¤ È®·ü¿¡ µû¶ó ÇÃ·¹ÀÌ¾îÀÇ Á¤Ä¡·ÂÀ» º¯È­½ÃÅ²´Ù
-     * ÇÔ¼ö ÆÄ¶ó¹ÌÅÍ : ¾øÀ½
-     * ¹İÈ¯°ª ¾øÀ½
+    /* í•¨ìˆ˜ ì´ë¦„ : Speech()
+     * í•¨ìˆ˜ ê¸°ëŠ¥ : ì—°ì„¤ ìˆ˜í–‰ ì‹œ ì¼ì • í™•ë¥ ì— ë”°ë¼ í”Œë ˆì´ì–´ì˜ ì •ì¹˜ë ¥ì„ ë³€í™”ì‹œí‚¨ë‹¤
+     * í•¨ìˆ˜ íŒŒë¼ë¯¸í„° : ì—†ìŒ
+     * ë°˜í™˜ê°’ ì—†ìŒ
      */
     public void Speech()
     {
-        if (Random.Range(0f, 100f) <= polSpeechRate)    // Á¤Ä¡·ÂÀÌ º¯È­ÇÒ È®·ü Àû¿ë
+        if (Random.Range(0f, 100f) <= polSpeechRate)    // ì •ì¹˜ë ¥ì´ ë³€í™”í•  í™•ë¥  ì ìš©
         {
-            characters[0].pol += polSpeechChange;       // È®·ü¿¡ µé¾î¿À¸é Á¤Ä¡·Â º¯È­
+            characters[0].pol += polSpeechChange;       // í™•ë¥ ì— ë“¤ì–´ì˜¤ë©´ ì •ì¹˜ë ¥ ë³€í™”
         }
     }
 
     
 
 
-    // ±¸±Û ½ÃÆ®¿Í ¿¬µ¿ ´ëºñ¿ë
+    // êµ¬ê¸€ ì‹œíŠ¸ì™€ ì—°ë™ ëŒ€ë¹„ìš©
     /*
     void SetItemSO(string tsv)
     {

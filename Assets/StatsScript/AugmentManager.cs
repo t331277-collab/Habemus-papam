@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Rendering.HableCurve;
 
-/* Å¬·¡½º ÀÌ¸§ : AugmentManager
- * Å¬·¡½º ±â´É : ÀÎ°ÔÀÓ¿¡¼­ÀÇ Áõ°­ °ü·Ã µ¥ÀÌÅÍ, ÇÔ¼ö °ü¸®
- * ÇÊµå :     augmentSO   AugmentSO Çü½ÄÀ¸·Î ÀüÃ¼ Áõ°­ÀÇ ¸®½ºÆ®¸¦ ÀúÀå
- *          augmentBuffer       ÇöÀç Á¶°ÇÀ» ¸¸Á·ÇÏ¿© »ç¿ëÇÒ ¼ö ÀÖ´Â Áõ°­ÀÇ ¸®½ºÆ®
- *          availAugmentList    augmentBuffer ¿¡¼­ °¡ÁßÄ¡ »Ì±â¸¦ ÅëÇØ »ÌÀº Áõ°­ 3°³¸¦ ÀúÀåÇÏ´Â ¸®½ºÆ®
- *          selAugment          ¼±ÅÃµÈ Áõ°­À» ÀúÀåÇÏ´Â º¯¼ö
- *          totalWeight         augmentBuffer ³»ÀÇ Áõ°­µéÀÇ ÃÑ °¡ÁßÄ¡ ÇÕÀ» ±¸ÇÏ´Â º¯¼ö
+/* í´ë˜ìŠ¤ ì´ë¦„ : AugmentManager
+ * í´ë˜ìŠ¤ ê¸°ëŠ¥ : ì¸ê²Œì„ì—ì„œì˜ ì¦ê°• ê´€ë ¨ ë°ì´í„°, í•¨ìˆ˜ ê´€ë¦¬
+ * í•„ë“œ :     augmentSO   AugmentSO í˜•ì‹ìœ¼ë¡œ ì „ì²´ ì¦ê°•ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ì €ì¥
+ *          augmentBuffer       í˜„ì¬ ì¡°ê±´ì„ ë§Œì¡±í•˜ì—¬ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ì¦ê°•ì˜ ë¦¬ìŠ¤íŠ¸
+ *          availAugmentList    augmentBuffer ì—ì„œ ê°€ì¤‘ì¹˜ ë½‘ê¸°ë¥¼ í†µí•´ ë½‘ì€ ì¦ê°• 3ê°œë¥¼ ì €ì¥í•˜ëŠ” ë¦¬ìŠ¤íŠ¸
+ *          selAugment          ì„ íƒëœ ì¦ê°•ì„ ì €ì¥í•˜ëŠ” ë³€ìˆ˜
+ *          totalWeight         augmentBuffer ë‚´ì˜ ì¦ê°•ë“¤ì˜ ì´ ê°€ì¤‘ì¹˜ í•©ì„ êµ¬í•˜ëŠ” ë³€ìˆ˜
  *          
- * ¸Å¼­µå : UpdateAugBuffer    ÇØ´ç ¶ó¿îµå¿¡¼­ »ç¿ë°¡´ÉÇÑ (Á¶°ÇÀ» ÃæÁ·ÇÑ) Áõ°­ ¸®½ºÆ®(augmentBuffer)¸¦ ¾÷µ¥ÀÌÆ® ÇÏ´Â ÇÔ¼ö
- *          GetTotalWeight     °¡ÁßÄ¡ »Ì±â¸¦ À§ÇÑ ÃÑ °¡ÁßÄ¡¸¦ ±¸ÇÏ¿© totalWeight º¯¼ö¿¡ ÀúÀåÇÏ´Â ÇÔ¼ö
- *          GetThreeAugment    °¡ÁßÄ¡¸¦ Àû¿ëÇÏ¿© augmentBuffer ³»¿¡¼­ 3°³ÀÇ Áõ°­À» »Ì¾Æ availAugmentList ¿¡ ÀúÀå
- *          SelectAugment      ÁÖ¾îÁø 3°³ÀÇ Áõ°­¿¡¼­ ¼±ÅÃµÈ Áõ°­À» selAugment º¯¼ö¿¡ ÀúÀå
+ * ë§¤ì„œë“œ : UpdateAugBuffer    í•´ë‹¹ ë¼ìš´ë“œì—ì„œ ì‚¬ìš©ê°€ëŠ¥í•œ (ì¡°ê±´ì„ ì¶©ì¡±í•œ) ì¦ê°• ë¦¬ìŠ¤íŠ¸(augmentBuffer)ë¥¼ ì—…ë°ì´íŠ¸ í•˜ëŠ” í•¨ìˆ˜
+ *          GetTotalWeight     ê°€ì¤‘ì¹˜ ë½‘ê¸°ë¥¼ ìœ„í•œ ì´ ê°€ì¤‘ì¹˜ë¥¼ êµ¬í•˜ì—¬ totalWeight ë³€ìˆ˜ì— ì €ì¥í•˜ëŠ” í•¨ìˆ˜
+ *          GetThreeAugment    ê°€ì¤‘ì¹˜ë¥¼ ì ìš©í•˜ì—¬ augmentBuffer ë‚´ì—ì„œ 3ê°œì˜ ì¦ê°•ì„ ë½‘ì•„ availAugmentList ì— ì €ì¥
+ *          SelectAugment      ì£¼ì–´ì§„ 3ê°œì˜ ì¦ê°•ì—ì„œ ì„ íƒëœ ì¦ê°•ì„ selAugment ë³€ìˆ˜ì— ì €ì¥
  */
 public class AugmentManager : MonoBehaviour
 {
@@ -29,23 +29,23 @@ public class AugmentManager : MonoBehaviour
 
     int totalWeight = 0;
 
-    /* ÇÔ¼ö ÀÌ¸§ : UpdateAugBuffer
-     * ÇÔ¼ö ±â´É : ÇØ´ç ¶ó¿îµå¿¡¼­ »ç¿ë°¡´ÉÇÑ (Á¶°ÇÀ» ÃæÁ·ÇÑ) Áõ°­ ¸®½ºÆ®(augmentBuffer)¸¦ ¾÷µ¥ÀÌÆ® ÇÏ´Â ÇÔ¼ö
-     * ÇÔ¼ö ÆÄ¶ó¹ÌÅÍ : int pol, ÇÃ·¹ÀÌ¾îÀÇ Á¤Ä¡·ÂÀ» ÀÔ·Â¹Ş¾Æ Áõ°­ÀÇ Á¶°Ç°ú ºñ±³
-     * ¹İÈ¯°ª ¾øÀ½
+    /* í•¨ìˆ˜ ì´ë¦„ : UpdateAugBuffer
+     * í•¨ìˆ˜ ê¸°ëŠ¥ : í•´ë‹¹ ë¼ìš´ë“œì—ì„œ ì‚¬ìš©ê°€ëŠ¥í•œ (ì¡°ê±´ì„ ì¶©ì¡±í•œ) ì¦ê°• ë¦¬ìŠ¤íŠ¸(augmentBuffer)ë¥¼ ì—…ë°ì´íŠ¸ í•˜ëŠ” í•¨ìˆ˜
+     * í•¨ìˆ˜ íŒŒë¼ë¯¸í„° : int pol, í”Œë ˆì´ì–´ì˜ ì •ì¹˜ë ¥ì„ ì…ë ¥ë°›ì•„ ì¦ê°•ì˜ ì¡°ê±´ê³¼ ë¹„êµ
+     * ë°˜í™˜ê°’ ì—†ìŒ
      */
     public void UpdateAugBuffer(int pol)
     {
-        // ¸ğµç Áõ°­¿¡ ´ëÇØ ºñ±³¸¦ ½ÇÇà
+        // ëª¨ë“  ì¦ê°•ì— ëŒ€í•´ ë¹„êµë¥¼ ì‹¤í–‰
         foreach (Augment augment in augmentSO.augmentList)
         {            
-            // ÀÎÀÚ·Î Àü´Ş¹ŞÀº Á¤Ä¡·ÂÀÌ Áõ°­ÀÇ Á¶°Çº¸´Ù ³ô°í augmentBuffer¿¡ ¾ø´Ù¸é Add
-            if (pol >= augment.augPolCond && !(augmentBuffer.Contains(augment)))    // Á¶°ÇÀ» ¸¸Á·ÇÏÁö¸¸ augmentBuffer¿¡ ¾øÀ½
+            // ì¸ìë¡œ ì „ë‹¬ë°›ì€ ì •ì¹˜ë ¥ì´ ì¦ê°•ì˜ ì¡°ê±´ë³´ë‹¤ ë†’ê³  augmentBufferì— ì—†ë‹¤ë©´ Add
+            if (pol >= augment.augPolCond && !(augmentBuffer.Contains(augment)))    // ì¡°ê±´ì„ ë§Œì¡±í•˜ì§€ë§Œ augmentBufferì— ì—†ìŒ
             {
                 augmentBuffer.Add(augment);
             }            
-            // ÀÎÀÚ·Î Àü´Ş¹ŞÀº Á¤Ä¡·ÂÀÌ Áõ°­ÀÇ Á¶°Çº¸´Ù ³·°í augmentBuffer¿¡ ÀÖ´Ù¸é Remove
-            else if (pol < augment.augPolCond && augmentBuffer.Contains(augment))   // Á¶°ÇÀ» ¸¸Á· ¸øÇÏÁö¸¸ augmentBuffer¿¡ ÀÖÀ½
+            // ì¸ìë¡œ ì „ë‹¬ë°›ì€ ì •ì¹˜ë ¥ì´ ì¦ê°•ì˜ ì¡°ê±´ë³´ë‹¤ ë‚®ê³  augmentBufferì— ìˆë‹¤ë©´ Remove
+            else if (pol < augment.augPolCond && augmentBuffer.Contains(augment))   // ì¡°ê±´ì„ ë§Œì¡± ëª»í•˜ì§€ë§Œ augmentBufferì— ìˆìŒ
             {
                 augmentBuffer.Remove(augment);
             }
@@ -53,62 +53,62 @@ public class AugmentManager : MonoBehaviour
         }
     }
 
-    /* ÇÔ¼ö ÀÌ¸§ : GetTotalWeight
-     * ÇÔ¼ö ±â´É : °¡ÁßÄ¡ »Ì±â¸¦ À§ÇÑ ÃÑ °¡ÁßÄ¡¸¦ ±¸ÇÏ¿© totalWeight º¯¼ö¿¡ ÀúÀåÇÏ´Â ÇÔ¼ö
-     * ÇÔ¼ö ÆÄ¶ó¹ÌÅÍ : ¾øÀ½
-     * ¹İÈ¯°ª : ¾øÀ½
+    /* í•¨ìˆ˜ ì´ë¦„ : GetTotalWeight
+     * í•¨ìˆ˜ ê¸°ëŠ¥ : ê°€ì¤‘ì¹˜ ë½‘ê¸°ë¥¼ ìœ„í•œ ì´ ê°€ì¤‘ì¹˜ë¥¼ êµ¬í•˜ì—¬ totalWeight ë³€ìˆ˜ì— ì €ì¥í•˜ëŠ” í•¨ìˆ˜
+     * í•¨ìˆ˜ íŒŒë¼ë¯¸í„° : ì—†ìŒ
+     * ë°˜í™˜ê°’ : ì—†ìŒ
      */
     public void GetTotalWeight()
     {
-        // ÃÑ °¡ÁßÄ¡ °ª 0À¸·Î ÃÊ±âÈ­
+        // ì´ ê°€ì¤‘ì¹˜ ê°’ 0ìœ¼ë¡œ ì´ˆê¸°í™”
         totalWeight = 0;
 
-        // augmentBuffer¿¡ ÀÖ´Â ¸ğµç Áõ°­ÀÇ °¡ÁßÄ¡¸¦ ´õÇÏ¿© totalWeight¿¡ ÀúÀå
+        // augmentBufferì— ìˆëŠ” ëª¨ë“  ì¦ê°•ì˜ ê°€ì¤‘ì¹˜ë¥¼ ë”í•˜ì—¬ totalWeightì— ì €ì¥
         foreach (Augment augment in augmentBuffer)
         {
             totalWeight += augment.augWeight;
         } 
     }
 
-    /* ÇÔ¼ö ÀÌ¸§ : GetThreeAugment
-     * ÇÔ¼ö ±â´É : °¡ÁßÄ¡¸¦ Àû¿ëÇÏ¿© augmentBuffer ³»¿¡¼­ 3°³ÀÇ Áõ°­À» »Ì¾Æ availAugmentList ¿¡ ÀúÀå
-     * ÇÔ¼ö ÆÄ¶ó¹ÌÅÍ : ¾øÀ½
-     * ¹İÈ¯°ª : ¾øÀ½
+    /* í•¨ìˆ˜ ì´ë¦„ : GetThreeAugment
+     * í•¨ìˆ˜ ê¸°ëŠ¥ : ê°€ì¤‘ì¹˜ë¥¼ ì ìš©í•˜ì—¬ augmentBuffer ë‚´ì—ì„œ 3ê°œì˜ ì¦ê°•ì„ ë½‘ì•„ availAugmentList ì— ì €ì¥
+     * í•¨ìˆ˜ íŒŒë¼ë¯¸í„° : ì—†ìŒ
+     * ë°˜í™˜ê°’ : ì—†ìŒ
      */
     public void GetThreeAugment()
     {
-        float pivot;    // »Ì±â¸¦ À§ÇÑ ·£´ıÇÑ °ª
-        float nowPivot; // ÇöÀç pivot°ª, ÇöÀç Áõ°­±îÁöÀÇ °¡ÁßÄ¡µéÀÇ ÇÕ
+        float pivot;    // ë½‘ê¸°ë¥¼ ìœ„í•œ ëœë¤í•œ ê°’
+        float nowPivot; // í˜„ì¬ pivotê°’, í˜„ì¬ ì¦ê°•ê¹Œì§€ì˜ ê°€ì¤‘ì¹˜ë“¤ì˜ í•©
 
-        // availAugmentList ÃÊ±âÈ­
+        // availAugmentList ì´ˆê¸°í™”
         availAugmentList.Clear();
 
-        // 3°³ÀÇ Áõ°­À» ÀúÀåÇÒ ¶§ ±îÁö ¹İº¹
+        // 3ê°œì˜ ì¦ê°•ì„ ì €ì¥í•  ë•Œ ê¹Œì§€ ë°˜ë³µ
         while (true)
         {
-            pivot = Random.Range(0, totalWeight);   // 0ºÎÅÍ ÃÑ °¡ÁßÄ¡ ÇÕ ±îÁöÀÇ ¼ö Áß ·£´ı °ª ÁöÁ¤
-            nowPivot = 0;   // ÇöÀç pivot 0À¸·Î ÃÊ±âÈ­
+            pivot = Random.Range(0, totalWeight);   // 0ë¶€í„° ì´ ê°€ì¤‘ì¹˜ í•© ê¹Œì§€ì˜ ìˆ˜ ì¤‘ ëœë¤ ê°’ ì§€ì •
+            nowPivot = 0;   // í˜„ì¬ pivot 0ìœ¼ë¡œ ì´ˆê¸°í™”
 
-            // augmentBuffer ³»ÀÇ ¸ğµç Áõ°­¿¡ ´ëÇØ ½ÇÇà
+            // augmentBuffer ë‚´ì˜ ëª¨ë“  ì¦ê°•ì— ëŒ€í•´ ì‹¤í–‰
             foreach (Augment augment in augmentBuffer)
             {
-                // ÇöÀç Áõ°­ÀÇ °¡ÁßÄ¡ °ªÀ» nowPivot¿¡ ´õÇÑ´Ù
+                // í˜„ì¬ ì¦ê°•ì˜ ê°€ì¤‘ì¹˜ ê°’ì„ nowPivotì— ë”í•œë‹¤
                 nowPivot += augment.augWeight;
 
-                // nowPivot °ªÀÌ ·£´ıÇÏ°Ô Á¤ÇÑ pivot °ªº¸´Ù Å©°Å³ª °°°í ÇöÀç Áõ°­ÀÌ availAugmentList¿¡ ÀÖ´Ù¸é foreach¹® Áß´Ü
-                if (pivot <= nowPivot && availAugmentList.Contains(augment))    // °¡ÁßÄ¡ »Ì±â·Î ³ª¿Â Áõ°­ÀÌ ÀÌ¹Ì availAugmentList¿¡ ÀÖÀ½
+                // nowPivot ê°’ì´ ëœë¤í•˜ê²Œ ì •í•œ pivot ê°’ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³  í˜„ì¬ ì¦ê°•ì´ availAugmentListì— ìˆë‹¤ë©´ foreachë¬¸ ì¤‘ë‹¨
+                if (pivot <= nowPivot && availAugmentList.Contains(augment))    // ê°€ì¤‘ì¹˜ ë½‘ê¸°ë¡œ ë‚˜ì˜¨ ì¦ê°•ì´ ì´ë¯¸ availAugmentListì— ìˆìŒ
                 {
                     break;
                 }
-                // nowPivot °ªÀÌ ·£´ıÇÏ°Ô Á¤ÇÑ pivot °ªº¸´Ù Å©°Å³ª °°°í ÇöÀç Áõ°­ÀÌ availAugmentList¿¡ ¾ø´Ù¸é availAugmentList¿¡ Add ÇÏ°í foreach¹® Áß´Ü
-                else if (pivot <= nowPivot && !(availAugmentList.Contains(augment)))    // °¡ÁßÄ¡ »Ì±â·Î ³ª¿Â Áõ°­ÀÌ availAugmentList¿¡ ¾øÀ½
+                // nowPivot ê°’ì´ ëœë¤í•˜ê²Œ ì •í•œ pivot ê°’ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³  í˜„ì¬ ì¦ê°•ì´ availAugmentListì— ì—†ë‹¤ë©´ availAugmentListì— Add í•˜ê³  foreachë¬¸ ì¤‘ë‹¨
+                else if (pivot <= nowPivot && !(availAugmentList.Contains(augment)))    // ê°€ì¤‘ì¹˜ ë½‘ê¸°ë¡œ ë‚˜ì˜¨ ì¦ê°•ì´ availAugmentListì— ì—†ìŒ
                 {
                     availAugmentList.Add(augment);
                     break;
                 }
             }
 
-            // Áõ°­À» 3°³ »Ì¾ÒÀ¸¸é while¹® Áß´Ü
+            // ì¦ê°•ì„ 3ê°œ ë½‘ì•˜ìœ¼ë©´ whileë¬¸ ì¤‘ë‹¨
             if (availAugmentList.Count >= 3)
             {
                 break;
@@ -117,10 +117,10 @@ public class AugmentManager : MonoBehaviour
         }
     }
 
-    /* ÇÔ¼ö ÀÌ¸§ : SelectAugment
-     * ÇÔ¼ö ±â´É : ¼±ÅÃµÈ Áõ°­ÀÇ index°ªÀ» ÀÎÀÚ·Î ¹Ş¾Æ ÇØ´ç Áõ°­À» selAugment¿¡ ÀúÀå
-     * ÇÔ¼ö ÆÄ¶ó¹ÌÅÍ : int index, ¼±ÅÃµÈ Áõ°­ÀÇ indexÀ» Àü´Ş¹Ş´Â´Ù
-     * ¹İÈ¯°ª : ¾øÀ½
+    /* í•¨ìˆ˜ ì´ë¦„ : SelectAugment
+     * í•¨ìˆ˜ ê¸°ëŠ¥ : ì„ íƒëœ ì¦ê°•ì˜ indexê°’ì„ ì¸ìë¡œ ë°›ì•„ í•´ë‹¹ ì¦ê°•ì„ selAugmentì— ì €ì¥
+     * í•¨ìˆ˜ íŒŒë¼ë¯¸í„° : int index, ì„ íƒëœ ì¦ê°•ì˜ indexì„ ì „ë‹¬ë°›ëŠ”ë‹¤
+     * ë°˜í™˜ê°’ : ì—†ìŒ
      */
     public void SelectAugment(int index)
     {

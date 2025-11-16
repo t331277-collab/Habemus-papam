@@ -20,25 +20,25 @@ public class StatsUIManager : MonoBehaviour
 
     public TextMeshProUGUI dayTimeText;
 
-    // 3ÃÊ µ¿¾È °ÔÀÓÀ» ÀÏ½ÃÁ¤ÁöÇÏ°í ¼±ÅÃÇÑ Çàµ¿ Á¤º¸¸¦ Ç¥½ÃÇÑ ÈÄ °ÔÀÓÀ» Àç°³ÇÏ´Â ÄÚ·çÆ¾
+    // 3ì´ˆ ë™ì•ˆ ê²Œì„ì„ ì¼ì‹œì •ì§€í•˜ê³  ì„ íƒí•œ í–‰ë™ ì •ë³´ë¥¼ í‘œì‹œí•œ í›„ ê²Œì„ì„ ì¬ê°œí•˜ëŠ” ì½”ë£¨í‹´
     IEnumerator WaitForSecond()
     {
-        Time.timeScale = 0f;    // °ÔÀÓÀÇ ½Ã°£À» ¸ØÃã
+        Time.timeScale = 0f;    // ê²Œì„ì˜ ì‹œê°„ì„ ë©ˆì¶¤
 
-        actionState.SetActive(true);    // actionState ¿ÀºêÁ§Æ®¸¦ È°¼ºÈ­ÇÏ¿© UI Ç¥½Ã
+        actionState.SetActive(true);    // actionState ì˜¤ë¸Œì íŠ¸ë¥¼ í™œì„±í™”í•˜ì—¬ UI í‘œì‹œ
 
-        yield return new WaitForSecondsRealtime(3f);    // ½ÇÁ¦ ½Ã°£ ±âÁØÀ¸·Î 3ÃÊ ´ë±â
+        yield return new WaitForSecondsRealtime(3f);    // ì‹¤ì œ ì‹œê°„ ê¸°ì¤€ìœ¼ë¡œ 3ì´ˆ ëŒ€ê¸°
 
-        actionState.SetActive(false);   // 3ÃÊ ÈÄ actionState UI ºñÈ°¼ºÈ­
+        actionState.SetActive(false);   // 3ì´ˆ í›„ actionState UI ë¹„í™œì„±í™”
 
-        Time.timeScale = 1.0f;  // °ÔÀÓÀÇ ½Ã°£À» ´Ù½Ã Á¤»ó¼Óµµ·Î ¼³Á¤
+        Time.timeScale = 1.0f;  // ê²Œì„ì˜ ì‹œê°„ì„ ë‹¤ì‹œ ì •ìƒì†ë„ë¡œ ì„¤ì •
     }
 
-    /* ÇÔ¼ö ÀÌ¸§ : OnClickPray
-     * ÇÔ¼ö ±â´É : Pray ¹öÆ°ÀÌ Å¬¸¯ µÆÀ» ¶§ È£ÃâÇÏ¿© actionText¸¦ "Praying..." À¸·Î ¼³Á¤ÇÏ°í WaitForSecond ÄÚ·çÆ¾ È£Ãâ
-     *              gameManagerÀÇ OnPrayActionÀ» È£ÃâÇÏ¿© Pray ½ÇÇà
-     * ÇÔ¼ö ÆÄ¶ó¹ÌÅÍ : ¾øÀ½
-     * ¹İÈ¯°ª : ¾øÀ½
+    /* í•¨ìˆ˜ ì´ë¦„ : OnClickPray
+     * í•¨ìˆ˜ ê¸°ëŠ¥ : Pray ë²„íŠ¼ì´ í´ë¦­ ëì„ ë•Œ í˜¸ì¶œí•˜ì—¬ actionTextë¥¼ "Praying..." ìœ¼ë¡œ ì„¤ì •í•˜ê³  WaitForSecond ì½”ë£¨í‹´ í˜¸ì¶œ
+     *              gameManagerì˜ OnPrayActionì„ í˜¸ì¶œí•˜ì—¬ Pray ì‹¤í–‰
+     * í•¨ìˆ˜ íŒŒë¼ë¯¸í„° : ì—†ìŒ
+     * ë°˜í™˜ê°’ : ì—†ìŒ
      */
     public void OnClickPray()
     {
@@ -49,11 +49,11 @@ public class StatsUIManager : MonoBehaviour
         gameManager.OnPrayAction();
     }
 
-    /* ÇÔ¼ö ÀÌ¸§ : OnClickSpeech
-     * ÇÔ¼ö ±â´É : Speech ¹öÆ°ÀÌ Å¬¸¯ µÆÀ» ¶§ È£ÃâÇÏ¿© actionText¸¦ "Speaking..." À¸·Î ¼³Á¤ÇÏ°í WaitForSecond ÄÚ·çÆ¾ È£Ãâ
-     *              gameManagerÀÇ OnSpeechActionÀ» È£ÃâÇÏ¿© Speech ½ÇÇà
-     * ÇÔ¼ö ÆÄ¶ó¹ÌÅÍ : ¾øÀ½
-     * ¹İÈ¯°ª : ¾øÀ½
+    /* í•¨ìˆ˜ ì´ë¦„ : OnClickSpeech
+     * í•¨ìˆ˜ ê¸°ëŠ¥ : Speech ë²„íŠ¼ì´ í´ë¦­ ëì„ ë•Œ í˜¸ì¶œí•˜ì—¬ actionTextë¥¼ "Speaking..." ìœ¼ë¡œ ì„¤ì •í•˜ê³  WaitForSecond ì½”ë£¨í‹´ í˜¸ì¶œ
+     *              gameManagerì˜ OnSpeechActionì„ í˜¸ì¶œí•˜ì—¬ Speech ì‹¤í–‰
+     * í•¨ìˆ˜ íŒŒë¼ë¯¸í„° : ì—†ìŒ
+     * ë°˜í™˜ê°’ : ì—†ìŒ
      */
     public void OnClickSpeech()
     {
@@ -64,10 +64,10 @@ public class StatsUIManager : MonoBehaviour
         gameManager.OnSpeechAction();
     }
 
-    /* ÇÔ¼ö ÀÌ¸§ : OnClickAugment
-     * ÇÔ¼ö ±â´É : Augment ¹öÆ°ÀÌ Å¬¸¯ µÆÀ» ¶§ È£ÃâÇÏ¿© °ÔÀÓÀÇ ½Ã°£À» ¸ØÃß°í 3°³ÀÇ Áõ°­À» ¶ç¿î´Ù
-     * ÇÔ¼ö ÆÄ¶ó¹ÌÅÍ : ¾øÀ½
-     * ¹İÈ¯°ª : ¾øÀ½
+    /* í•¨ìˆ˜ ì´ë¦„ : OnClickAugment
+     * í•¨ìˆ˜ ê¸°ëŠ¥ : Augment ë²„íŠ¼ì´ í´ë¦­ ëì„ ë•Œ í˜¸ì¶œí•˜ì—¬ ê²Œì„ì˜ ì‹œê°„ì„ ë©ˆì¶”ê³  3ê°œì˜ ì¦ê°•ì„ ë„ìš´ë‹¤
+     * í•¨ìˆ˜ íŒŒë¼ë¯¸í„° : ì—†ìŒ
+     * ë°˜í™˜ê°’ : ì—†ìŒ
      */
     public void OnClickAugment()
     {
@@ -81,11 +81,11 @@ public class StatsUIManager : MonoBehaviour
         }
     }
 
-    /* ÇÔ¼ö ÀÌ¸§ : OnClickSelectAugment
-     * ÇÔ¼ö ±â´É : ¼¼°¡Áö Áõ°­ Áß ÇÏ³ª¸¦ ¼±ÅÃÇßÀ» ¶§ È£Ãâ. ¿ŞÂÊºÎÅÍ ÀÎµ¦½º 0, 1, 2 ·Î ¼±ÅÃÇÑ Áõ°­¿¡ µû¶ó ÀÎµ¦½º°ªÀ» ÀÎÀÚ·Î Àü´Ş
-     *              Áõ°­ ¼±ÅÃ UI¸¦ ²ô°í actionText¸¦ "Conducting Operations..." À¸·Î ¼³Á¤ÇÏ°í WaitForSecond ÄÚ·çÆ¾ È£Ãâ
-     * ÇÔ¼ö ÆÄ¶ó¹ÌÅÍ : ¾øÀ½
-     * ¹İÈ¯°ª : ¾øÀ½
+    /* í•¨ìˆ˜ ì´ë¦„ : OnClickSelectAugment
+     * í•¨ìˆ˜ ê¸°ëŠ¥ : ì„¸ê°€ì§€ ì¦ê°• ì¤‘ í•˜ë‚˜ë¥¼ ì„ íƒí–ˆì„ ë•Œ í˜¸ì¶œ. ì™¼ìª½ë¶€í„° ì¸ë±ìŠ¤ 0, 1, 2 ë¡œ ì„ íƒí•œ ì¦ê°•ì— ë”°ë¼ ì¸ë±ìŠ¤ê°’ì„ ì¸ìë¡œ ì „ë‹¬
+     *              ì¦ê°• ì„ íƒ UIë¥¼ ë„ê³  actionTextë¥¼ "Conducting Operations..." ìœ¼ë¡œ ì„¤ì •í•˜ê³  WaitForSecond ì½”ë£¨í‹´ í˜¸ì¶œ
+     * í•¨ìˆ˜ íŒŒë¼ë¯¸í„° : ì—†ìŒ
+     * ë°˜í™˜ê°’ : ì—†ìŒ
      */
     public void OnClickSelectAugment(int index)
     {
@@ -103,10 +103,10 @@ public class StatsUIManager : MonoBehaviour
         StartCoroutine("WaitForSecond");
     }
 
-    /* ÇÔ¼ö ÀÌ¸§ : OnClickBack
-     * ÇÔ¼ö ±â´É : Áõ°­ ¼±ÅÃ È­¸é¿¡¼­ back ¹öÆ°À» ´©¸£¸é Áõ°­ ¼±ÅÃ È­¸éÀ» ²ô°í °¢ Çàµ¿ ¹öÆ°À» È°¼ºÈ­ÇÑ ÈÄ °ÔÀÓ ½Ã°£À» Á¤»óÀ¸·Î º¹±¸
-     * ÇÔ¼ö ÆÄ¶ó¹ÌÅÍ : ¾øÀ½
-     * ¹İÈ¯°ª : ¾øÀ½
+    /* í•¨ìˆ˜ ì´ë¦„ : OnClickBack
+     * í•¨ìˆ˜ ê¸°ëŠ¥ : ì¦ê°• ì„ íƒ í™”ë©´ì—ì„œ back ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ ì¦ê°• ì„ íƒ í™”ë©´ì„ ë„ê³  ê° í–‰ë™ ë²„íŠ¼ì„ í™œì„±í™”í•œ í›„ ê²Œì„ ì‹œê°„ì„ ì •ìƒìœ¼ë¡œ ë³µêµ¬
+     * í•¨ìˆ˜ íŒŒë¼ë¯¸í„° : ì—†ìŒ
+     * ë°˜í™˜ê°’ : ì—†ìŒ
      */
     public void OnClickBack()
     {
@@ -120,10 +120,10 @@ public class StatsUIManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    /* ÇÔ¼ö ÀÌ¸§ : SetAugmentUI
-     * ÇÔ¼ö ±â´É : Áõ°­ ¼±ÅÃ È­¸é¿¡¼­ ¼±ÅÃ °¡´ÉÇÑ 3°¡Áö Áõ°­ÀÇ Á¤º¸¸¦ UI·Î Àü´Ş
-     * ÇÔ¼ö ÆÄ¶ó¹ÌÅÍ : List<Augment> availAugmentList, ÀÌ¹ø ÅÏ¿¡ ¼±ÅÃ °¡´ÉÇÑ ¼¼ °¡Áö Áõ°­À» ÀÎÀÚ·Î ¹ŞÀ½
-     * ¹İÈ¯°ª : ¾øÀ½
+    /* í•¨ìˆ˜ ì´ë¦„ : SetAugmentUI
+     * í•¨ìˆ˜ ê¸°ëŠ¥ : ì¦ê°• ì„ íƒ í™”ë©´ì—ì„œ ì„ íƒ ê°€ëŠ¥í•œ 3ê°€ì§€ ì¦ê°•ì˜ ì •ë³´ë¥¼ UIë¡œ ì „ë‹¬
+     * í•¨ìˆ˜ íŒŒë¼ë¯¸í„° : List<Augment> availAugmentList, ì´ë²ˆ í„´ì— ì„ íƒ ê°€ëŠ¥í•œ ì„¸ ê°€ì§€ ì¦ê°•ì„ ì¸ìë¡œ ë°›ìŒ
+     * ë°˜í™˜ê°’ : ì—†ìŒ
      */
     public void SetAugmentUI(List<Augment> availAugmentList)
     {
@@ -134,20 +134,20 @@ public class StatsUIManager : MonoBehaviour
         }
     }
 
-    /* ÇÔ¼ö ÀÌ¸§ : SetDayTime
-     * ÇÔ¼ö ±â´É : ³¯Â¥½Ã°£ Á¤º¸¸¦ ÀÎÀÚ·Î Àü´Ş ¹Ş¾Æ UI·Î Àü´Ş
-     * ÇÔ¼ö ÆÄ¶ó¹ÌÅÍ : string dayTime, ³¯Â¥½Ã°£ Á¤º¸¸¦ ÀúÀåÇÑ string Å¸ÀÔÀ» ÀÎÀÚ·Î Àü´Ş ¹ŞÀ½
-     * ¹İÈ¯°ª : ¾øÀ½
+    /* í•¨ìˆ˜ ì´ë¦„ : SetDayTime
+     * í•¨ìˆ˜ ê¸°ëŠ¥ : ë‚ ì§œì‹œê°„ ì •ë³´ë¥¼ ì¸ìë¡œ ì „ë‹¬ ë°›ì•„ UIë¡œ ì „ë‹¬
+     * í•¨ìˆ˜ íŒŒë¼ë¯¸í„° : string dayTime, ë‚ ì§œì‹œê°„ ì •ë³´ë¥¼ ì €ì¥í•œ string íƒ€ì…ì„ ì¸ìë¡œ ì „ë‹¬ ë°›ìŒ
+     * ë°˜í™˜ê°’ : ì—†ìŒ
      */
     public void SetDayTime(string dayTime)
     {
         dayTimeText.text = dayTime;
     }
 
-    /* ÇÔ¼ö ÀÌ¸§ : SetStatsInfo
-     * ÇÔ¼ö ±â´É : Ä³¸¯ÅÍµéÀÇ ½ºÅÈ Á¤º¸¸¦ ¹Ş¾Æ UI·Î Àü´Ş
-     * ÇÔ¼ö ÆÄ¶ó¹ÌÅÍ : List<Character> characters, Ä³¸¯ÅÍµéÀÇ ½ºÅÈÀ» ÀúÀåÀœ ¸®½ºÆ®¸¦ ÀÎÀÚ·Î ¹ŞÀ½
-     * ¹İÈ¯°ª : ¾øÀ½
+    /* í•¨ìˆ˜ ì´ë¦„ : SetStatsInfo
+     * í•¨ìˆ˜ ê¸°ëŠ¥ : ìºë¦­í„°ë“¤ì˜ ìŠ¤íƒ¯ ì •ë³´ë¥¼ ë°›ì•„ UIë¡œ ì „ë‹¬
+     * í•¨ìˆ˜ íŒŒë¼ë¯¸í„° : List<Character> characters, ìºë¦­í„°ë“¤ì˜ ìŠ¤íƒ¯ì„ ì €ì¥í• ë¦¬ìŠ¤íŠ¸ë¥¼ ì¸ìë¡œ ë°›ìŒ
+     * ë°˜í™˜ê°’ : ì—†ìŒ
      */
     public void SetStatsInfo(List<Character> characters)
     {

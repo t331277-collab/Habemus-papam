@@ -3,46 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-/* Å¬·¡½º ÀÌ¸§ : GameManager
- * Å¬·¡½º ±â´É : ÀÎ°ÔÀÓ¿¡¼­ °ÔÀÓ ÁøÇàÀ» °ü¸®
- * ÇÊµå :       statsUIManager      StatsUIManager ½ºÅ©¸³Æ®¸¦ ÂüÁ¶ÇÏ´Â º¯¼ö
- *              statsManager        StatsManager ½ºÅ©¸³Æ®¸¦ ÂüÁ¶ÇÏ´Â º¯¼ö
- *              augmentManager      AugmentManager ½ºÅ©¸³Æ®¸¦ ÂüÁ¶ÇÏ´Â º¯¼ö
- *              day                 ¸î¹øÂ° ³¯ ÀÎÁö ÀúÀåÇÏ´Â º¯¼ö
- *              turn                ¸î¹øÂ° ÅÏ ÀÎÁö ÀúÀåÇÏ´Â º¯¼ö
- *              limitTime           Á¦ÇÑ½Ã°£À» ÀúÀåÇÏ´Â º¯¼ö
- *              remainTime                Á¦ÇÑ½Ã°£À» ÀúÀåÇÏ´Â º¯¼ö
+/* í´ë˜ìŠ¤ ì´ë¦„ : GameManager
+ * í´ë˜ìŠ¤ ê¸°ëŠ¥ : ì¸ê²Œì„ì—ì„œ ê²Œì„ ì§„í–‰ì„ ê´€ë¦¬
+ * í•„ë“œ :       statsUIManager      StatsUIManager ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì°¸ì¡°í•˜ëŠ” ë³€ìˆ˜
+ *              statsManager        StatsManager ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì°¸ì¡°í•˜ëŠ” ë³€ìˆ˜
+ *              augmentManager      AugmentManager ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì°¸ì¡°í•˜ëŠ” ë³€ìˆ˜
+ *              day                 ëª‡ë²ˆì§¸ ë‚  ì¸ì§€ ì €ì¥í•˜ëŠ” ë³€ìˆ˜
+ *              turn                ëª‡ë²ˆì§¸ í„´ ì¸ì§€ ì €ì¥í•˜ëŠ” ë³€ìˆ˜
+ *              limitTime           ì œí•œì‹œê°„ì„ ì €ì¥í•˜ëŠ” ë³€ìˆ˜
+ *              remainTime                ì œí•œì‹œê°„ì„ ì €ì¥í•˜ëŠ” ë³€ìˆ˜
  *              
- * ¸Å¼­µå :    NextTurn             ÅõÇ¥°¡ ³¡³ª°í »õ·Î¿î ÅÏÀÌ ½ÃÀÛµÉ ¶§ Á¤º¸ ÃÊ±âÈ­
- *             OnPrayAction         UI¿¡¼­ Pray ¹öÆ°À» Å¬¸¯ÇßÀ» ¶§ È£ÃâÇÏ¿© statsManagerÀÇ PrayÇÔ¼ö ½ÇÇà
- *             OnSpeechAction       UI¿¡¼­ Speech ¹öÆ°À» Å¬¸¯ÇßÀ» ¶§ È£ÃâÇÏ¿© statsManagerÀÇ SpeechÇÔ¼ö ½ÇÇà
- *             OnSelectAugment      UI¿¡¼­ ¼¼°³ÀÇ Áõ°­ Áß ÇÏ³ª¸¦ ¼±ÅÃÇßÀ» ¶§ ¼±ÅÃµÈ Áõ°­ÀÇ index¸¦ ¹Ş¾Æ ¼±ÅÃµÈ Áõ°­À» ÀúÀåÇÏ´Â SelectAugment ÇÔ¼ö ½ÇÇà
+ * ë§¤ì„œë“œ :    NextTurn             íˆ¬í‘œê°€ ëë‚˜ê³  ìƒˆë¡œìš´ í„´ì´ ì‹œì‘ë  ë•Œ ì •ë³´ ì´ˆê¸°í™”
+ *             OnPrayAction         UIì—ì„œ Pray ë²„íŠ¼ì„ í´ë¦­í–ˆì„ ë•Œ í˜¸ì¶œí•˜ì—¬ statsManagerì˜ Prayí•¨ìˆ˜ ì‹¤í–‰
+ *             OnSpeechAction       UIì—ì„œ Speech ë²„íŠ¼ì„ í´ë¦­í–ˆì„ ë•Œ í˜¸ì¶œí•˜ì—¬ statsManagerì˜ Speechí•¨ìˆ˜ ì‹¤í–‰
+ *             OnSelectAugment      UIì—ì„œ ì„¸ê°œì˜ ì¦ê°• ì¤‘ í•˜ë‚˜ë¥¼ ì„ íƒí–ˆì„ ë•Œ ì„ íƒëœ ì¦ê°•ì˜ indexë¥¼ ë°›ì•„ ì„ íƒëœ ì¦ê°•ì„ ì €ì¥í•˜ëŠ” SelectAugment í•¨ìˆ˜ ì‹¤í–‰
  */
 public class GameManager : MonoBehaviour
 {
-    public StatsUIManager statsUIManager;   // StatsUIManager ½ºÅ©¸³Æ®¸¦ ÂüÁ¶ÇÏ´Â º¯¼ö
+    public StatsUIManager statsUIManager;   // StatsUIManager ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì°¸ì¡°í•˜ëŠ” ë³€ìˆ˜
 
-    public StatsManager statsManager;       // StatsManager ½ºÅ©¸³Æ®¸¦ ÂüÁ¶ÇÏ´Â º¯¼ö
-    public AugmentManager augmentManager;   // AugmentManager ½ºÅ©¸³Æ®¸¦ ÂüÁ¶ÇÏ´Â º¯¼ö
+    public StatsManager statsManager;       // StatsManager ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì°¸ì¡°í•˜ëŠ” ë³€ìˆ˜
+    public AugmentManager augmentManager;   // AugmentManager ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì°¸ì¡°í•˜ëŠ” ë³€ìˆ˜
 
-    // ¸î¹øÂ° ³¯ ÀÎÁö, ¸î¹øÂ° ÅÏ ÀÎÁö ³ªÅ¸³»´Â º¯¼ö
+    // ëª‡ë²ˆì§¸ ë‚  ì¸ì§€, ëª‡ë²ˆì§¸ í„´ ì¸ì§€ ë‚˜íƒ€ë‚´ëŠ” ë³€ìˆ˜
     int day = 1;
     int turn = 0;
 
-    // ÅÏ ´ç Á¦ÇÑ½Ã°£
-    float limitTime = 10f;  // ¿ì¼± 10ÃÊ·Î ¼³Á¤
-    float remainTime;       // ÇöÀç ³²Àº ½Ã°£
+    // í„´ ë‹¹ ì œí•œì‹œê°„
+    float limitTime = 10f;  // ìš°ì„  10ì´ˆë¡œ ì„¤ì •
+    float remainTime;       // í˜„ì¬ ë‚¨ì€ ì‹œê°„
 
     void Awake()
     {
-        statsManager = GetComponent<StatsManager>();        // StatsManager ÄÄÆ÷³ÍÆ®¸¦ ¹Ş¾Æ ÀúÀå
-        augmentManager = GetComponent<AugmentManager>();    // AugmentManager ÄÄÆ÷³ÍÆ®¸¦ ¹Ş¾Æ ÀúÀå
-        statsManager.SetStats();    // SetStats ÇÔ¼ö¸¦ È£ÃâÇÏ¿© Ã³À½ Ä³¸¯ÅÍ ½ºÅÈ ÃÊ±âÈ­
+        statsManager = GetComponent<StatsManager>();        // StatsManager ì»´í¬ë„ŒíŠ¸ë¥¼ ë°›ì•„ ì €ì¥
+        augmentManager = GetComponent<AugmentManager>();    // AugmentManager ì»´í¬ë„ŒíŠ¸ë¥¼ ë°›ì•„ ì €ì¥
+        statsManager.SetStats();    // SetStats í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ì—¬ ì²˜ìŒ ìºë¦­í„° ìŠ¤íƒ¯ ì´ˆê¸°í™”
     }
 
     void Start()
     {
-        NextTurn();     // »õ·Î¿î ÅÏ Á¤º¸ ÃÊ±âÈ­
+        NextTurn();     // ìƒˆë¡œìš´ í„´ ì •ë³´ ì´ˆê¸°í™”
     }
 
     void Update()
@@ -58,21 +58,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    /* ÇÔ¼ö ÀÌ¸§ : NextTurn
-     * ÇÔ¼ö ±â´É : ÅõÇ¥°¡ ³¡³ª°í »õ·Î¿î ÅÏÀÌ ½ÃÀÛ µÉ¶§ Á¤º¸ ÃÊ±âÈ­
-     * ÇÔ¼ö ÆÄ¶ó¹ÌÅÍ : ¾øÀ½
-     * ¹İÈ¯°ª : ¾øÀ½ 
+    /* í•¨ìˆ˜ ì´ë¦„ : NextTurn
+     * í•¨ìˆ˜ ê¸°ëŠ¥ : íˆ¬í‘œê°€ ëë‚˜ê³  ìƒˆë¡œìš´ í„´ì´ ì‹œì‘ ë ë•Œ ì •ë³´ ì´ˆê¸°í™”
+     * í•¨ìˆ˜ íŒŒë¼ë¯¸í„° : ì—†ìŒ
+     * ë°˜í™˜ê°’ : ì—†ìŒ 
      */
     void NextTurn()
     {
-        augmentManager.UpdateAugBuffer(statsManager.characters[0].pol); // »õ·Î¿î ÅÏ¿¡¼­ »ç¿ë °¡´ÉÇÑ Áõ°­ ¾÷µ¥ÀÌÆ®
-        augmentManager.GetTotalWeight();    // ÀÌ¹ø ÅÏ¿¡ »ç¿ë °¡´ÉÇÑ Áõ°­µéÀÇ ÃÑ °¡ÁßÄ¡ ÇÕ ±¸ÇÏ±â
-        augmentManager.GetThreeAugment();   // °¡ÁßÄ¡ »Ì±â¸¦ ÅëÇØ ¼±ÅÃ Ã¢¿¡ ¶ç¿ï ¼¼°¡Áö Áõ°­ ÀúÀå
+        augmentManager.UpdateAugBuffer(statsManager.characters[0].pol); // ìƒˆë¡œìš´ í„´ì—ì„œ ì‚¬ìš© ê°€ëŠ¥í•œ ì¦ê°• ì—…ë°ì´íŠ¸
+        augmentManager.GetTotalWeight();    // ì´ë²ˆ í„´ì— ì‚¬ìš© ê°€ëŠ¥í•œ ì¦ê°•ë“¤ì˜ ì´ ê°€ì¤‘ì¹˜ í•© êµ¬í•˜ê¸°
+        augmentManager.GetThreeAugment();   // ê°€ì¤‘ì¹˜ ë½‘ê¸°ë¥¼ í†µí•´ ì„ íƒ ì°½ì— ë„ìš¸ ì„¸ê°€ì§€ ì¦ê°• ì €ì¥
 
-        statsUIManager.SetAugmentUI(augmentManager.availAugmentList);   // ¼¼°¡Áö Áõ°­À» UI Á¤º¸¿¡ Àü´Ş
+        statsUIManager.SetAugmentUI(augmentManager.availAugmentList);   // ì„¸ê°€ì§€ ì¦ê°•ì„ UI ì •ë³´ì— ì „ë‹¬
 
-        // ÅÏ°ú ³¯Â¥ °»½Å
-        // ÇÏ·ç 3°³ÀÇ ÅÏ, turnÀÌ 4ÀÌ»óÀÌ¸é day¸¦ 1 Áõ°¡½ÃÅ°°í ´Ù½Ã turnÀ» 1·Î ¼³Á¤
+        // í„´ê³¼ ë‚ ì§œ ê°±ì‹ 
+        // í•˜ë£¨ 3ê°œì˜ í„´, turnì´ 4ì´ìƒì´ë©´ dayë¥¼ 1 ì¦ê°€ì‹œí‚¤ê³  ë‹¤ì‹œ turnì„ 1ë¡œ ì„¤ì •
         turn++;
         if (turn >= 4)
         {
@@ -80,26 +80,26 @@ public class GameManager : MonoBehaviour
             turn = 1;
         }
 
-        remainTime = limitTime;     // Á¦ÇÑ½Ã°£ ÃÊ±âÈ­
+        remainTime = limitTime;     // ì œí•œì‹œê°„ ì´ˆê¸°í™”
     }
 
-    // UI¿¡¼­ Pray ¹öÆ°À» Å¬¸¯ÇßÀ» ¶§ È£ÃâÇÏ¿© statsManagerÀÇ PrayÇÔ¼ö ½ÇÇà
+    // UIì—ì„œ Pray ë²„íŠ¼ì„ í´ë¦­í–ˆì„ ë•Œ í˜¸ì¶œí•˜ì—¬ statsManagerì˜ Prayí•¨ìˆ˜ ì‹¤í–‰
     public void OnPrayAction()
     {
         statsManager.Pray();
     }
 
-    // UI¿¡¼­ Speech ¹öÆ°À» Å¬¸¯ÇßÀ» ¶§ È£ÃâÇÏ¿© statsManagerÀÇ SpeechÇÔ¼ö ½ÇÇà
+    // UIì—ì„œ Speech ë²„íŠ¼ì„ í´ë¦­í–ˆì„ ë•Œ í˜¸ì¶œí•˜ì—¬ statsManagerì˜ Speechí•¨ìˆ˜ ì‹¤í–‰
     public void OnSpeechAction()
     {
         statsManager.Speech();
     }
 
-    // UI¿¡¼­ ¼¼°³ÀÇ Áõ°­ Áß ÇÏ³ª¸¦ ¼±ÅÃÇßÀ» ¶§ ¼±ÅÃµÈ Áõ°­ÀÇ index¸¦ ¹Ş¾Æ ¼±ÅÃµÈ Áõ°­À» ÀúÀåÇÏ´Â SelectAugment ÇÔ¼ö ½ÇÇà
+    // UIì—ì„œ ì„¸ê°œì˜ ì¦ê°• ì¤‘ í•˜ë‚˜ë¥¼ ì„ íƒí–ˆì„ ë•Œ ì„ íƒëœ ì¦ê°•ì˜ indexë¥¼ ë°›ì•„ ì„ íƒëœ ì¦ê°•ì„ ì €ì¥í•˜ëŠ” SelectAugment í•¨ìˆ˜ ì‹¤í–‰
     public void OnSelectAugment(int index)
     {
         augmentManager.SelectAugment(index);
-        // augmentManager.ApplyAugment();       Áõ°­À» Àû¿ëÇÏ´Â ÇÔ¼ö (¿¹Á¤)
+        // augmentManager.ApplyAugment();       ì¦ê°•ì„ ì ìš©í•˜ëŠ” í•¨ìˆ˜ (ì˜ˆì •)
     }
 
 }

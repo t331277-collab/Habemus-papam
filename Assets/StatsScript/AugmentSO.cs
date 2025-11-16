@@ -3,17 +3,17 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 
-/* Å¬·¡½º ÀÌ¸§ : Augment
- * Å¬·¡½º ±â´É : Áõ°­ Á¤º¸ ±¸Á¶¸¦ Á¤ÀÇÇÏ´Â Å¬·¡½º
- * ¸Ş¼­µå : Equals(object obj)
- *          ±â´É : Augment Å¬·¡½º °£ Equals ºñ±³¸¦ ÇÒ ¶§ ´Ü¼ø °ª ºñ±³°¡ ¾Æ´Ñ Augment Å¬·¡½º ³»ÀÇ ÀÌ¸§(¾ÆÀÌµğ)¸¦ ºñ±³ÇÏµµ·Ï override
- *          ÆÄ¶ó¹ÌÅÍ : object obj ¿ÀºêÁ§Æ®¸¦ ÀÎÀÚ·Î ¹ŞÀ½
- *          ¹İÈ¯°ª : µÎ Áõ°­ÀÇ ÀÌ¸§(¾ÆÀÌµğ)ÀÌ °°À¸¸é true, ´Ù¸£¸é false 
+/* í´ë˜ìŠ¤ ì´ë¦„ : Augment
+ * í´ë˜ìŠ¤ ê¸°ëŠ¥ : ì¦ê°• ì •ë³´ êµ¬ì¡°ë¥¼ ì •ì˜í•˜ëŠ” í´ë˜ìŠ¤
+ * ë©”ì„œë“œ : Equals(object obj)
+ *          ê¸°ëŠ¥ : Augment í´ë˜ìŠ¤ ê°„ Equals ë¹„êµë¥¼ í•  ë•Œ ë‹¨ìˆœ ê°’ ë¹„êµê°€ ì•„ë‹Œ Augment í´ë˜ìŠ¤ ë‚´ì˜ ì´ë¦„(ì•„ì´ë””)ë¥¼ ë¹„êµí•˜ë„ë¡ override
+ *          íŒŒë¼ë¯¸í„° : object obj ì˜¤ë¸Œì íŠ¸ë¥¼ ì¸ìë¡œ ë°›ìŒ
+ *          ë°˜í™˜ê°’ : ë‘ ì¦ê°•ì˜ ì´ë¦„(ì•„ì´ë””)ì´ ê°™ìœ¼ë©´ true, ë‹¤ë¥´ë©´ false 
  */
 [System.Serializable]
 public class Augment
 {
-    // Áõ°­ µ¥ÀÌÅÍ º¯¼ö
+    // ì¦ê°• ë°ì´í„° ë³€ìˆ˜
     public string augName;
     public string augDesc;
     public TriggerType augType;
@@ -26,37 +26,37 @@ public class Augment
 
     public int augWeight;
 
-    /* ÇÔ¼ö ÀÌ¸§ : Equals
-     * ÇÔ¼ö ±â´É : ±âÁ¸ ¿ÀºêÁ§Æ® ³» ¸Ş¼­µåÀÎ Equals ¸¦ Augment¿¡ Àû¿ëÇÏ±â À§ÇØ Áõ°­ÀÇ ÀÌ¸§(¾ÆÀÌµğ)¸¦ ºñ±³ÇÏµµ·Ï override
-     * ÆÄ¶ó¹ÌÅÍ : ºñ±³ ´ë»ó ¿ÀºêÁ§Æ®
-     * ¹İÈ¯°ª : µÎ Áõ°­ÀÇ ÀÌ¸§(¾ÆÀÌµğ)ÀÌ °°À¸¸é true, ´Ù¸£¸é false 
+    /* í•¨ìˆ˜ ì´ë¦„ : Equals
+     * í•¨ìˆ˜ ê¸°ëŠ¥ : ê¸°ì¡´ ì˜¤ë¸Œì íŠ¸ ë‚´ ë©”ì„œë“œì¸ Equals ë¥¼ Augmentì— ì ìš©í•˜ê¸° ìœ„í•´ ì¦ê°•ì˜ ì´ë¦„(ì•„ì´ë””)ë¥¼ ë¹„êµí•˜ë„ë¡ override
+     * íŒŒë¼ë¯¸í„° : ë¹„êµ ëŒ€ìƒ ì˜¤ë¸Œì íŠ¸
+     * ë°˜í™˜ê°’ : ë‘ ì¦ê°•ì˜ ì´ë¦„(ì•„ì´ë””)ì´ ê°™ìœ¼ë©´ true, ë‹¤ë¥´ë©´ false 
      */
     public override bool Equals(object obj)
     {
-        if (obj is Augment other)   // ÀÔ·Â¹ŞÀº ÀÎÀÚ°¡ AugmentÅ¬·¡½ºÀÌ¸é other¿¡ ´ëÀÔ
-            return this.augName == other.augName;   // µÎ Áõ°­ÀÇ ÀÌ¸§(¾ÆÀÌµğ)ÀÌ °°À¸¸é true, ´Ù¸£¸é false
-        return false;   // ÀÔ·Â¹ŞÀº ÀÎÀÚ°¡ Augment°¡ ¾Æ´Ï¶ó¸é false ¹İÈ¯
+        if (obj is Augment other)   // ì…ë ¥ë°›ì€ ì¸ìê°€ Augmentí´ë˜ìŠ¤ì´ë©´ otherì— ëŒ€ì…
+            return this.augName == other.augName;   // ë‘ ì¦ê°•ì˜ ì´ë¦„(ì•„ì´ë””)ì´ ê°™ìœ¼ë©´ true, ë‹¤ë¥´ë©´ false
+        return false;   // ì…ë ¥ë°›ì€ ì¸ìê°€ Augmentê°€ ì•„ë‹ˆë¼ë©´ false ë°˜í™˜
     }
 }
 
-// Áõ°­ÀÇ ¹ßµ¿ ½Ã±â
+// ì¦ê°•ì˜ ë°œë™ ì‹œê¸°
 public enum TriggerType
 {
-    OnSelect,           // Áõ°­À» ¼±ÅÃÇÏ´Â ¼ø°£
-    OnPray,             // ±âµµ Çàµ¿ ½Ã
-    OnSpeech,           // ¿¬¼³ Çàµ¿ ½Ã
-    OnTurnStart,        // ÅÏ ½ÃÀÛ ½Ã
-    OnDeathPrevent      // »ç¸Á Á÷Àü
+    OnSelect,           // ì¦ê°•ì„ ì„ íƒí•˜ëŠ” ìˆœê°„
+    OnPray,             // ê¸°ë„ í–‰ë™ ì‹œ
+    OnSpeech,           // ì—°ì„¤ í–‰ë™ ì‹œ
+    OnTurnStart,        // í„´ ì‹œì‘ ì‹œ
+    OnDeathPrevent      // ì‚¬ë§ ì§ì „
 }
 
-// Áõ°­ÀÇ Å¸°Ù
+// ì¦ê°•ì˜ íƒ€ê²Ÿ
 public enum TargetType
 {
-    Self,           // ÀÚ½Å
-    AllOppo,        // ¸ğµç °æÀïÀÚ
-    SelectedOppo,   // ÇÃ·¹ÀÌ¾î°¡ ¼±ÅÃÇÑ °æÀïÀÚ
-    LowestStatOppo, // Æ¯Á¤ ½ºÅÈÀÌ °¡Àå ³·Àº °æÀïÀÚ
-    HighestStatOppo // Æ¯Á¤ ½ºÅÈÀÌ °¡Àå ³ôÀº °æÀïÀÚ
+    Self,           // ìì‹ 
+    AllOppo,        // ëª¨ë“  ê²½ìŸì
+    SelectedOppo,   // í”Œë ˆì´ì–´ê°€ ì„ íƒí•œ ê²½ìŸì
+    LowestStatOppo, // íŠ¹ì • ìŠ¤íƒ¯ì´ ê°€ì¥ ë‚®ì€ ê²½ìŸì
+    HighestStatOppo // íŠ¹ì • ìŠ¤íƒ¯ì´ ê°€ì¥ ë†’ì€ ê²½ìŸì
 }
 
 
@@ -64,6 +64,6 @@ public enum TargetType
 [CreateAssetMenu(fileName = "AugmentSO", menuName = "Scriptable Objects/AugmentSO")]
 public class AugmentSO : ScriptableObject
 {
-    // Áõ°­ ¸®½ºÆ®
+    // ì¦ê°• ë¦¬ìŠ¤íŠ¸
     public List<Augment> augmentList = new List<Augment>();
 }
