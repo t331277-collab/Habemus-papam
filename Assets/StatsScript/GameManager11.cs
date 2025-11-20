@@ -18,7 +18,7 @@ using TMPro;
  *             OnSpeechAction       UI에서 Speech 버튼을 클릭했을 때 호출하여 statsManager의 Speech함수 실행
  *             OnSelectAugment      UI에서 세개의 증강 중 하나를 선택했을 때 선택된 증강의 index를 받아 선택된 증강을 저장하는 SelectAugment 함수 실행
  */
-public class GameManager : MonoBehaviour
+public class GameManager1 : MonoBehaviour
 {
     public StatsUIManager statsUIManager;   // StatsUIManager 스크립트를 참조하는 변수
 

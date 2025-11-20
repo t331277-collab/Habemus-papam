@@ -6,7 +6,7 @@ using TMPro;
 
 public class StatsUIManager : MonoBehaviour
 {
-    public GameManager gameManager;
+    public GameManager1 gameManager;
 
     public TextMeshProUGUI[] charStatsText = new TextMeshProUGUI[4];
 
